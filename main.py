@@ -1,17 +1,15 @@
 import sys
 import warnings
-import argparse
+import os
 import requests
 from urllib.parse import urlparse
 
 warnings.filterwarnings("ignore")
 
-parser = argparse.ArgumentParser()
-parser.add_argument('domains_list_path', type=str)
-args = parser.parse_args()
+domains_list_path = os.environ.get('DOMAINS_LIST_PATH', './domains.yaml')
 
 try:
-    domains_list = open(args.domains_list_path, 'r')
+    domains_list = open(domains_list_path, 'r')
     domains = domains_list.read().splitlines()
 except:
     print("error: cannot open a domains list")
@@ -25,4 +23,3 @@ for domain in domains:
         print("\t" + final_domain)
     except:
         print()
-
